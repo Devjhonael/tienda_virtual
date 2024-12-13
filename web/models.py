@@ -19,8 +19,10 @@ class Producto(models.Model):
     def __str__(self):
         return self.nombre
     
-from django.contrib.auth.models import User
 
+
+from django.contrib.auth.models import User
+# esta relacionando 1 con 1 para poder buscar algo asi
 class Cliente(models.Model):
     usuario = models.OneToOneField(User,on_delete=models.RESTRICT)
     dni = models.CharField(max_length=8)
