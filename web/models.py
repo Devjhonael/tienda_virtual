@@ -26,9 +26,9 @@ from django.contrib.auth.models import User
 class Cliente(models.Model):
     usuario = models.OneToOneField(User,on_delete=models.RESTRICT)
     dni = models.CharField(max_length=8)
-    sexo = models.CharField(max_length=1,default='M')
+    # sexo = models.CharField(max_length=1,default='M')
     telefono = models.CharField(max_length=20)
-    fecha_nacimiento = models.DateField(null=True)
+    # fecha_nacimiento = models.DateField(null=True)
     direccion = models.TextField()
     
     def __str__(self):

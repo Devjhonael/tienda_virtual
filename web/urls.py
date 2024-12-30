@@ -1,5 +1,4 @@
 from django.urls import path
-from django.contrib.auth import views as auth_views
 
 
 from . import views
@@ -8,6 +7,7 @@ app_name = 'web'
 
 urlpatterns = [
     path('', views.index,name='index'),
+    path('catalogo', views.catalogo,name='catalogo'),
 
     path('productosPorCategoria/<int:categoria_id>',views.productosPorCategoria,name='productosPorCategoria'),
     

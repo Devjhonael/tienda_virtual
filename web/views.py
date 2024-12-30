@@ -22,6 +22,17 @@ def index(request):
     }
     return render(request,'index.html',context)
 
+def catalogo(request):
+    listaProductos = Producto.objects.all()
+    listaCategorias = Categoria.objects.all()
+    
+    #print(listaProductos)
+    context = {
+        'productos':listaProductos,
+        'categorias':listaCategorias
+    }
+    return render(request,'card_catalogo.html',context)
+
 def productosPorCategoria(request,categoria_id):
     """ vista para filtrar productos por categoria """
     objCategoria = Categoria.objects.get(pk=categoria_id)
@@ -35,7 +46,7 @@ def productosPorCategoria(request,categoria_id):
         'productos':listaProductos
     }
     
-    return render(request,'index.html',context)
+    return render(request,'card_catalogo.html',context)
 
 def productosPorNombre(request):
     """ vista para filtrado de productos por nombre capturamos el valor nombre enviado """
@@ -129,7 +140,7 @@ def crearUsuario(request):
         nuevoUsuario = User.objects.create_user(username=dataUsuario,password=dataPassword)
         if nuevoUsuario is not None:
             login(request,nuevoUsuario)
-            return redirect('/cuenta')
+            return redirect('/')
     
     
     return render(request,'login.html')
@@ -207,7 +218,7 @@ def actualizarCliente(request):
             actUsuario = User.objects.get(pk=request.user.id)
             actUsuario.first_name = dataCliente["nombre"]
             actUsuario.last_name = dataCliente["apellidos"]
-            actUsuario.email = dataCliente["email"]
+            # actUsuario.email = dataCliente["email"]
             actUsuario.save()
             
             #registrar Cliente
@@ -216,8 +227,8 @@ def actualizarCliente(request):
             nuevoCliente.dni = dataCliente["dni"]
             nuevoCliente.direccion = dataCliente["direccion"]
             nuevoCliente.telefono = dataCliente["telefono"]
-            nuevoCliente.sexo = dataCliente["sexo"]
-            nuevoCliente.fecha_nacimiento = dataCliente["fecha_nacimiento"]
+            # nuevoCliente.sexo = dataCliente["sexo"]
+            # nuevoCliente.fecha_nacimiento = dataCliente["fecha_nacimiento"]
             nuevoCliente.save()
             
             mensaje = "Datos Actualizados"
@@ -228,7 +239,7 @@ def actualizarCliente(request):
     }
             
     
-    return render(request,'cuenta.html',context)
+    return render(request,'card_catalogo.html',context)
 
 
 
@@ -321,7 +332,7 @@ def confirmarPedido(request):
         
         #Creamos boton de paypal
         paypal_dict = {
-        "business": settings.PAYPAL_USER_EMAIL,
+        "business":     ings.PAYPAL_USER_EMAIL,
         "amount": montoTotal,
         "item_name": "PEDIDO CODIGO : "+ nroPedido,
         "invoice": nroPedido,
